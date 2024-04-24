@@ -4,4 +4,28 @@
     height: 800px;
     position: relative;
     left: calc(50% - 250px);
+    border-radius: 20px;
+}
+
+.music-image{
+    width: 300px;
+    height: 300px;
+    position: relative;
+    left: calc(50% - 150px);
+    top: 50px;
+    margin: 10px;
+    /* border-radius: 10px; */
+}
+
+.song-info{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    position: relative;
+    top: 40px;
+    margin: 10px;
+}
+
+.song-info > label{
+    margin: 15px;
 }
