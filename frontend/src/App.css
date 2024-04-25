@@ -13,7 +13,7 @@
     position: relative;
     left: calc(50% - 300px);
     top: 50px;
-    margin: 0px 40px 20px 40px;
+    margin: 0px 40px 15px 40px;
     display: inline-block;
 }
 
@@ -23,41 +23,26 @@
     text-align: center;
     position: relative;
     top: 40px;
-    margin: 10px;
+    margin: 5px;
 }
 
-.song-info > label{
-    margin: 15px;
+h4{
+    font-weight: normal;
+    margin: 20px;
 }
 
-.media-control{
-    display: flex;
-    flex-direction: row;
-    padding-top: 100px;
-    margin: 0px;
-    justify-content: space-evenly;
+h4:nth-child(1){
+    font-size: 24px;
+    font-weight: bold;
 }
 
-.pause-control{
-    position: relative;
-    display: inline-block;
-}
-
-.replay-control{
-    position: relative;
-    display: inline-block;
-    margin-top: 12px;
-}
-
-.shuffle-control{
-    position: relative;
-    display: inline-block;
-    margin-top: 12px;
+h4:nth-child(2){
+    font-size: 16px;
 }
 
 hr{
     border: 1px solid black;
-    margin-top: 80px;
+    margin-top: 90px;
     width: 70%;
 }
 
@@ -77,4 +62,29 @@ hr{
     display: inline-block;
     position: relative;
     top: 165px;
+}
+
+.media-control{
+    display: flex;
+    flex-direction: row;
+    padding-top: 70px;
+    margin: 0px;
+    justify-content: space-evenly;
+}
+
+.pause-control{
+    position: relative;
+    display: inline-block;
+}
+
+.replay-control{
+    position: relative;
+    display: inline-block;
+    margin-top: 12px;
+}
+
+.shuffle-control{
+    position: relative;
+    display: inline-block;
+    margin-top: 12px;
 }

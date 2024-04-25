@@ -52,8 +52,8 @@ function SkipPreviousSong(){
 function SongInformation(){
   return <>
     <div className = "song-info">
-      <label htmlFor="">In Rainbows</label>
-      <label htmlFor="">Radiohead</label>
+      <h4>In Rainbows</h4>
+      <h4>Radiohead</h4>
     </div>
   </>
 
