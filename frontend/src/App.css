@@ -33,7 +33,7 @@
 .media-control{
     display: flex;
     flex-direction: row;
-    padding-top: 175px;
+    padding-top: 100px;
     margin: 0px;
     justify-content: space-evenly;
 }
@@ -53,4 +53,10 @@
     position: relative;
     display: inline-block;
     margin-top: 12px;
+}
+
+hr{
+    border: 1px solid black;
+    margin-top: 80px;
+    width: 70%;
 }

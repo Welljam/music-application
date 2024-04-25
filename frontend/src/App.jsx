@@ -15,7 +15,7 @@ function SoundBox(){
     <div className = "sound-box">
     <Image />
     <SongInformation />
-    {/* <CurrentTimeIndicator /> */}
+    <CurrentTimeIndicator />
     <MediaControls />
 
   </div>
@@ -40,7 +40,9 @@ function SongInformation(){
 }
 
 function CurrentTimeIndicator(){
-  return
+  return(
+    <hr />
+  );
 
   //how to make a currentimeindicator in javascript
 }
