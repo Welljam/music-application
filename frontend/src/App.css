@@ -29,3 +29,9 @@
 .song-info > label{
     margin: 15px;
 }
+
+.pause-control{
+    position: relative;
+    left: calc(50% - 2.5rem - 50px);
+    margin: 50px;
+}

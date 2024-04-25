@@ -46,12 +46,9 @@ function CurrentTimeIndicator(){
 
 function MediaControls(){
   return(
-    <div>
-      <h1>
-       <PauseCircleFilled />
-      </h1>
+    <div className = "pause-control">
+       <PauseCircleFilled style = {{fontSize: '5rem'}}/>
     </div>
   );
-
 
 }
