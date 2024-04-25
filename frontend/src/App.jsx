@@ -1,6 +1,9 @@
-import "./App.css"
-// import PauseCircleIcon from './frontend/material-icons/node_modules_icons/@mui/icons-material/PauseCircle';
+
 // import PauseCircleIcon from '@mui/icons-material/PauseCircle';
+import PauseCircleFilled from '@material-ui/icons/PauseCircleFilled';
+import "./App.css"
+
+
 
 export default function App(){
   return SoundBox();
@@ -12,7 +15,7 @@ function SoundBox(){
     <Image />
     <SongInformation />
     {/* <CurrentTimeIndicator /> */}
-    {/* <MediaControls /> */}
+    <MediaControls />
 
   </div>
   )
@@ -45,7 +48,7 @@ function MediaControls(){
   return(
     <div>
       <h1>
-       <PauseCircleIcon />
+       <PauseCircleFilled />
       </h1>
     </div>
   );
