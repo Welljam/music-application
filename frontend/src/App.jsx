@@ -1,6 +1,6 @@
 import "./App.css"
-import SkipNextIcon from '@mui/icons-material/SkipNext'; 
-import PauseCircleIcon from '@mui/icons-material/PauseCircle';
+// import PauseCircleIcon from './frontend/material-icons/node_modules_icons/@mui/icons-material/PauseCircle';
+// import PauseCircleIcon from '@mui/icons-material/PauseCircle';
 
 export default function App(){
   return SoundBox();
@@ -12,7 +12,7 @@ function SoundBox(){
     <Image />
     <SongInformation />
     {/* <CurrentTimeIndicator /> */}
-    <MediaControls />
+    {/* <MediaControls /> */}
 
   </div>
   )
