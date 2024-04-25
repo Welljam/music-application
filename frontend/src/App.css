@@ -29,3 +29,28 @@
 .song-info > label{
     margin: 15px;
 }
+
+.media-control{
+    display: flex;
+    flex-direction: row;
+    padding-top: 175px;
+    margin: 0px;
+    justify-content: space-evenly;
+}
+
+.pause-control{
+    position: relative;
+    display: inline-block;
+}
+
+.replay-control{
+    position: relative;
+    display: inline-block;
+    margin-top: 12px;
+}
+
+.shuffle-control{
+    position: relative;
+    display: inline-block;
+    margin-top: 12px;
+}

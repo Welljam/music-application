@@ -1,6 +1,10 @@
+
+import PauseCircleFilled from '@material-ui/icons/PauseCircleFilled'
+import Repeat from '@material-ui/icons/Repeat'
+import Shuffle from '@material-ui/icons/Shuffle'
 import "./App.css"
-import SkipNextIcon from '@mui/icons-material/SkipNext'; 
-import PauseCircleIcon from '@mui/icons-material/PauseCircle';
+
+
 
 export default function App(){
   return SoundBox();
@@ -43,12 +47,19 @@ function CurrentTimeIndicator(){
 
 function MediaControls(){
   return(
-    <div>
-      <h1>
-       <PauseCircleIcon />
-      </h1>
+    <>
+    <div className = "media-control">
+      <div className = "shuffle-control">
+        <Shuffle style = {{fontSize: '3.5rem'}}/>
+      </div>
+      <div className = "pause-control">
+        <PauseCircleFilled style = {{fontSize: '5rem'}}/>
+      </div>
+      <div className = "replay-control">
+        <Repeat style = {{fontSize: '3.5rem'}}/>
+      </div>
     </div>
+    </>
   );
-
 
 }
