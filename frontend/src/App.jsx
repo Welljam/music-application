@@ -1,10 +1,11 @@
-
 import PauseCircleFilled from '@material-ui/icons/PauseCircleFilled'
 import Repeat from '@material-ui/icons/Repeat'
 import Shuffle from '@material-ui/icons/Shuffle'
 import SkipNext from '@material-ui/icons/SkipNext'
 import SkipPrevious from '@material-ui/icons/SkipPrevious'
+import PlayCircleFilled from '@material-ui/icons/PlayCircleFilled'
 import "./App.css"
+import React, {useState} from 'react';
 
 
 export default function App(){
@@ -30,10 +31,12 @@ function Image(){
       <SkipNextSong />
     </div>
   );
-
 }
 
+
+
 function SkipNextSong(){
+    
   return(
     <div className = "skip-next">
       <SkipNext style = {{fontSize: '5rem'}}/>
@@ -67,23 +70,36 @@ function CurrentTimeIndicator(){
   //how to make a currentimeindicator in javascript
 }
 
-function MediaControls(){
-  return(
-    <>
-    <div className = "media-control">
-      <div className = "shuffle-control">
-        <Shuffle style = {{fontSize: '3.5rem'}}/>
-      </div>
+function MediaControls() {
+  const [isPlaying, setIsPlaying] = useState(false);
 
-      <div className = "pause-control">
-        <PauseCircleFilled style = {{fontSize: '5rem'}}/>
+  const togglePlay = () => {
+    setIsPlaying(!isPlaying);
+  };
+
+  return (
+    <div className="media-control">
+      <div className="shuffle-control">
+        <Shuffle style={{ fontSize: '3.5rem' }} />
       </div>
-      
-      <div className = "replay-control">
-        <Repeat style = {{fontSize: '3.5rem'}}/>
+      {isPlaying ? (
+        <div className="pause-control">
+          <PauseCircleFilled
+            onClick={togglePlay}
+            style={{ fontSize: '5rem' }}
+          />
+        </div>
+      ) : (
+        <div className="pause-control">
+          <PlayCircleFilled
+            onClick={togglePlay}
+            style={{ fontSize: '5rem' }}
+          />
+        </div>
+      )}
+      <div className="replay-control">
+        <Repeat style={{ fontSize: '3.5rem' }} />
       </div>
     </div>
-    </>
   );
-
 }
