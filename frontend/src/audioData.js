@@ -10,6 +10,12 @@ export const audios = [
         music: './mp3-files/Blond.mp3',
         creator: 'Frank Ocean',
         image: 'https://upload.wikimedia.org/wikipedia/en/a/a0/Blonde_-_Frank_Ocean.jpeg'
+    },
+    {
+        name: 'Rumours',
+        music: './mp3-files/Rumours.mp3',
+        creator: 'Fleetwood Mac',
+        image: 'https://upload.wikimedia.org/wikipedia/en/f/fb/FMacRumours.PNG'
     }
 
 ]
