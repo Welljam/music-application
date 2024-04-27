@@ -14,55 +14,62 @@ export default function App(){
 }
 
 function SoundBox(){
+
+  const [currentAudioIndex, setCurrentAudioIndex] = useState(0);
+
+  const handleNextSong = () =>{
+    setCurrentAudioIndex((prevIndex) => (prevIndex + 1) % audios.length);
+  };
+
+  const handlePreviousSong = () => {
+    setCurrentAudioIndex((prevIndex) => (prevIndex - 1 + audios.length) % audios.length);
+  };
+
+  const selectedAudio = audios[currentAudioIndex];
+
   return(
     <div className = "sound-box">
-    <Image />
-    <SongInformation />
+    <Image image={selectedAudio.image} onNextClick={handleNextSong} onPreviousClick={handlePreviousSong}/>
+    <SongInformation name={selectedAudio.name} creator={selectedAudio.creator}/>
     <CurrentTimeIndicator />
     <MediaControls />
   </div>
   )
 }
 
-function Image(){
+function Image({ image, onNextClick, onPreviousClick }){
   return(
     <div className = "skip-media">
-      <SkipPreviousSong />
-      <img className = "music-image" src="https://www.nme.com/wp-content/uploads/2016/09/62_radiohead-1.jpg" alt="Album Cover" />
-      <SkipNextSong />
+      <SkipPreviousSong onPreviousClick={onPreviousClick}/>
+      <img className = "music-image" src={image} alt="Album Cover" />
+      <SkipNextSong onNextClick={onNextClick}/>
     </div>
   );
 }
 
-function SkipNextSong(){
-
-  const handleClick = () =>{
-    
-  }
-
+function SkipNextSong({onNextClick}){
   return(
-    <div className = "skip-next" onClick={handleClick}>
+    <div className = "skip-next" onClick={onNextClick}>
       <SkipNext style = {{fontSize: '5rem'}}/>
     </div>
   );
 }
 
-function SkipPreviousSong(){
+function SkipPreviousSong({onPreviousClick}){
   return(
-    <div className = "skip-previous">
+    <div className = "skip-previous" onClick = {onPreviousClick}>
       <SkipPrevious style = {{fontSize: '5rem'}}/>
     </div>
   );
 }
 
-function SongInformation(){
-  return <>
+function SongInformation({name, creator}){
+  return(
     <div className = "song-info">
-      <h4>In Rainbows</h4>
-      <h4>Radiohead</h4>
+      <h4>{name}</h4>
+      <h4>{creator}</h4>
     </div>
-  </>
-
+  );
 }
 
 function CurrentTimeIndicator(){
@@ -102,7 +109,6 @@ function MediaControls() {
           />
         </div>
       )}
-
 
       <div className="replay-control">
         <Repeat style={{ fontSize: '3.5rem' }} />
