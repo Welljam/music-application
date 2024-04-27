@@ -5,7 +5,8 @@ import SkipNext from '@material-ui/icons/SkipNext'
 import SkipPrevious from '@material-ui/icons/SkipPrevious'
 import PlayCircleFilled from '@material-ui/icons/PlayCircleFilled'
 import "./App.css"
-import React, {useState} from 'react';
+import React, {useState} from 'react'
+// import { audios } from './audioData';
 
 
 export default function App(){
@@ -32,8 +33,6 @@ function Image(){
     </div>
   );
 }
-
-
 
 function SkipNextSong(){
     
@@ -82,21 +81,25 @@ function MediaControls() {
       <div className="shuffle-control">
         <Shuffle style={{ fontSize: '3.5rem' }} />
       </div>
+
+
       {isPlaying ? (
-        <div className="pause-control">
+        <div className="pause-play-control">
           <PauseCircleFilled
             onClick={togglePlay}
-            style={{ fontSize: '5rem' }}
+            style={{ fontSize: '7rem' }}
           />
         </div>
       ) : (
-        <div className="pause-control">
+        <div className="pause-play-control">
           <PlayCircleFilled
             onClick={togglePlay}
-            style={{ fontSize: '5rem' }}
+            style={{ fontSize: '7rem' }}
           />
         </div>
       )}
+
+
       <div className="replay-control">
         <Repeat style={{ fontSize: '3.5rem' }} />
       </div>

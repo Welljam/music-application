@@ -70,24 +70,27 @@ hr{
 .media-control{
     display: flex;
     flex-direction: row;
-    padding-top: 70px;
+    padding-top: 60px;
     margin: 0px;
     justify-content: space-evenly;
 }
 
-.pause-control{
+.pause-play-control{
     position: relative;
     display: inline-block;
+    cursor: pointer;
 }
 
 .replay-control{
     position: relative;
     display: inline-block;
-    margin-top: 12px;
+    margin-top: 27px;
+    cursor: pointer;
 }
 
 .shuffle-control{
     position: relative;
     display: inline-block;
-    margin-top: 12px;
+    margin-top: 27px;
+    cursor: pointer;
 }
