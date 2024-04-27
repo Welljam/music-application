@@ -6,7 +6,7 @@ import SkipPrevious from '@material-ui/icons/SkipPrevious'
 import PlayCircleFilled from '@material-ui/icons/PlayCircleFilled'
 import "./App.css"
 import React, {useState} from 'react'
-// import { audios } from './audioData';
+import { audios } from './audioData';
 
 
 export default function App(){
@@ -35,9 +35,13 @@ function Image(){
 }
 
 function SkipNextSong(){
+
+  const handleClick = () =>{
     
+  }
+
   return(
-    <div className = "skip-next">
+    <div className = "skip-next" onClick={handleClick}>
       <SkipNext style = {{fontSize: '5rem'}}/>
     </div>
   );
