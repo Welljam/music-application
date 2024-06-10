@@ -96,7 +96,7 @@ function MediaControls({ music }) {
 
   return (
     <div className="media-control">
-      <audio ref={audioRef} src={music}></audio>
+      <audio ref={audioRef} src={music} loop></audio>
 
       <div className="shuffle-control">
         <Shuffle style={{ fontSize: '3.5rem' }} />
