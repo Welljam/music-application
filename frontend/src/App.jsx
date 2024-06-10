@@ -5,9 +5,8 @@ import SkipNext from '@material-ui/icons/SkipNext'
 import SkipPrevious from '@material-ui/icons/SkipPrevious'
 import PlayCircleFilled from '@material-ui/icons/PlayCircleFilled'
 import "./App.css"
-import React, {useState} from 'react'
+import React, {useEffect, useState, useRef} from 'react'
 import { audios } from './audioData';
-
 
 export default function App(){
   return SoundBox();
@@ -31,9 +30,9 @@ function SoundBox(){
     <div className = "sound-box">
     <Image image={selectedAudio.image} onNextClick={handleNextSong} onPreviousClick={handlePreviousSong}/>
     <SongInformation name={selectedAudio.name} creator={selectedAudio.creator}/>
-    <CurrentTimeIndicator />
+    <CurrentTimeIndicator music = {selectedAudio.music}/>
     <MediaControls />
-  </div>
+    </div>
   )
 }
 
@@ -80,19 +79,31 @@ function CurrentTimeIndicator(){
   //how to make a currentimeindicator in javascript
 }
 
-function MediaControls() {
+function MediaControls({music}) {
   const [isPlaying, setIsPlaying] = useState(false);
 
   const togglePlay = () => {
     setIsPlaying(!isPlaying);
   };
 
+  const audioRef = useRef(null);
+  useEffect(() => {
+    if(isPlaying){
+      audioRef.current.play();
+    }
+    else{
+      audioRef.current.pause();
+    }
+  }, [isPlaying])
+
+
   return (
     <div className="media-control">
+      <audio ref={audioRef} src={music}></audio>
+
       <div className="shuffle-control">
         <Shuffle style={{ fontSize: '3.5rem' }} />
       </div>
-
 
       {isPlaying ? (
         <div className="pause-play-control">
