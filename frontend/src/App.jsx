@@ -87,10 +87,8 @@ function MediaControls({ music }) {
   useEffect(() => {
     if (audioRef.current) {
       if (isPlaying) {
-        console.log('Playing audio:', music);
-        audioRef.current.play().catch(error => console.error('Error playing audio:', error));
+        audioRef.current.play();
       } else {
-        console.log('Pausing audio');
         audioRef.current.pause();
       }
     }
