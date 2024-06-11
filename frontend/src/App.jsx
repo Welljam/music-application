@@ -24,13 +24,15 @@ function SoundBox() {
   };
 
   const selectedAudio = audios[currentAudioIndex];
+  const progressBarRef = useRef();
+  const audioRef = useRef(null);
 
   return (
     <div className="sound-box">
       <Image image={selectedAudio.image} onNextClick={handleNextSong} onPreviousClick={handlePreviousSong} />
       <SongInformation name={selectedAudio.name} creator={selectedAudio.creator} />
-      <CurrentTimeIndicator />
-      <MediaControls music={selectedAudio.music} />
+      <CurrentTimeIndicator progressBarRef={progressBarRef}/>
+      <MediaControls music={selectedAudio.music} audioRef={audioRef}/>
     </div>
   );
 }
@@ -70,12 +72,21 @@ function SongInformation({ name, creator }) {
   );
 }
 
-function CurrentTimeIndicator() {
+function CurrentTimeIndicator({progressBarRef}) {
   
+  const handleProgressChange = () => {
+    console.log(progressBarRef.current.value);
+  }
+
   return(
     <div className="progress">
       <span className="time current" >0:00</span>
-      <input type="range" />
+      <input 
+      type="range" 
+      ref={progressBarRef} 
+      defaultValue="0" 
+      onChange={handleProgressChange}
+      />
       <span className ="time">04:10</span>
     </div>
   );
@@ -85,9 +96,9 @@ function CurrentTimeIndicator() {
   // );
 }
 
-function MediaControls({ music }) {
+function MediaControls({ music, audioRef }) {
   const [isPlaying, setIsPlaying] = useState(false);
-  const audioRef = useRef(null);
+  // const audioRef = useRef(null);
 
   const togglePlay = () => {
     setIsPlaying((prevIsPlaying) => !prevIsPlaying);
