@@ -72,10 +72,17 @@ function SongInformation({ name, creator }) {
 
 function CurrentTimeIndicator() {
   
-  
-  return (
-    <hr />
+  return(
+    <div className="progress">
+      <span className="time current" >0:00</span>
+      <input type="range" />
+      <span className ="time">04:10</span>
+    </div>
   );
+
+  // return (
+  //   <hr />
+  // );
 }
 
 function MediaControls({ music }) {
