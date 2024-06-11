@@ -71,6 +71,8 @@ function SongInformation({ name, creator }) {
 }
 
 function CurrentTimeIndicator() {
+  
+  
   return (
     <hr />
   );
