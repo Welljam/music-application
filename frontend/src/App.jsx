@@ -79,25 +79,20 @@ function CurrentTimeIndicator({progressBarRef, timeProgress, duration}) {
   
   const handleProgressChange = () => {
     audioRef.current.currentTime = progressBarRef.current.value;
-    // console.log(progressBarRef.current.value);
   };
 
   return(
     <div className="progress">
-      <span className="time current" >{timeProgress}</span>
+      <span className="time current" >{formatTime(timeProgress)}</span>
       <input 
       type="range" 
       ref={progressBarRef} 
       defaultValue="0" 
       onChange={handleProgressChange}
       />
-      <span className ="time">{duration}</span>
+      <span className ="time">{formatTime(duration)}</span>
     </div>
   );
-
-  // return (
-  //   <hr />
-  // );
 }
 
 const formatTime = (time) => {
@@ -113,15 +108,11 @@ const formatTime = (time) => {
 
 function MediaControls({ music, audioRef, setDuration, progressBarRef }) {
   const [isPlaying, setIsPlaying] = useState(false);
-  // const audioRef = useRef(null);
-
   const togglePlay = () => {
     setIsPlaying((prevIsPlaying) => !prevIsPlaying);
   };
 
   const onLoadedMetadata = () => {
-    // console.log(audioRef.current.duration)
-
     const seconds = audioRef.current.duration;
     setDuration(seconds);
     progressBarRef.current.max = seconds;
