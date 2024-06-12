@@ -7,6 +7,7 @@ import PlayCircleFilled from '@material-ui/icons/PlayCircleFilled';
 import "./App.css";
 import React, { useEffect, useState, useRef } from 'react';
 import { audios } from './audioData';
+import { useCallback } from 'react';
 
 export default function App() {
   return <SoundBox />;
@@ -35,7 +36,7 @@ function SoundBox() {
       <Image image={selectedAudio.image} onNextClick={handleNextSong} onPreviousClick={handlePreviousSong} />
       <SongInformation name={selectedAudio.name} creator={selectedAudio.creator} />
       <CurrentTimeIndicator progressBarRef={progressBarRef} audioRef={audioRef} timeProgress={timeProgress} duration={duration}/>
-      <MediaControls music={selectedAudio.music} audioRef={audioRef} setDuration={setDuration} progressBarRef={progressBarRef}/>
+      <MediaControls music={selectedAudio.music} audioRef={audioRef} setDuration={setDuration} progressBarRef={progressBarRef} duration={duration} setTimeProgress={setTimeProgress}/>
     </div>
   );
 }
@@ -87,7 +88,6 @@ function CurrentTimeIndicator({progressBarRef, timeProgress, duration}) {
     } 
     return '00:00';
   };
-  
 
   const handleProgressChange = () => {
     audioRef.current.currentTime = progressBarRef.current.value;
@@ -95,7 +95,7 @@ function CurrentTimeIndicator({progressBarRef, timeProgress, duration}) {
 
   return(
     <div className="progress">
-      <span className="time current" >{formatTime(timeProgress)}</span>
+      <span className="time" >{formatTime(timeProgress)}</span>
       <input 
       type="range" 
       ref={progressBarRef} 
@@ -107,7 +107,7 @@ function CurrentTimeIndicator({progressBarRef, timeProgress, duration}) {
   );
 }
 
-function MediaControls({ music, audioRef, setDuration, progressBarRef }) {
+function MediaControls({ music, audioRef, setDuration, progressBarRef, duration, setTimeProgress }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const togglePlay = () => {
     setIsPlaying((prevIsPlaying) => !prevIsPlaying);
@@ -118,6 +118,30 @@ function MediaControls({ music, audioRef, setDuration, progressBarRef }) {
     setDuration(seconds);
     progressBarRef.current.max = seconds;
   }
+
+  const playAnimationRef = useRef();
+
+  const repeat = useCallback(() => {
+    const currentTime = audioRef.current.currentTime;
+    setTimeProgress(currentTime);
+    progressBarRef.current.value = currentTime;
+    progressBarRef.current.style.setProperty(
+      '--range-progress',
+      `${(progressBarRef.currnet.value / duration) * 100}%`
+    );
+
+    playAnimationRef.current = requestAnimationFrame(repeat);
+  }, [audioRef, duration, progressBarRef, setTimeProgress]);
+
+  useEffect(() => {
+    if(isPlaying){
+      audioRef.current.play();
+    } else {
+      audioRef.current.pause();
+    }
+    playAnimationRef.current = requestAnimationFrame(repeat);
+  }, [isPlaying, audioRef, repeat]);
+
 
   useEffect(() => {
     if (audioRef.current) {

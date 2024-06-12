@@ -97,14 +97,11 @@ hr{
 
 .progress{
     margin-top: 70px;
+    position: relative;
+    margin-left: 200px;
 }
-
 .time{
-
-}
-
-.current{
-
+    width: 100px;
 }
 
 input[type="range"]{
