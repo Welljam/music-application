@@ -27,12 +27,15 @@ function SoundBox() {
   const progressBarRef = useRef();
   const audioRef = useRef(null);
 
+  const[timeProgress, setTimeProgress] = useState(0);
+  const[duration, setDuration] = useState(0);
+
   return (
     <div className="sound-box">
       <Image image={selectedAudio.image} onNextClick={handleNextSong} onPreviousClick={handlePreviousSong} />
       <SongInformation name={selectedAudio.name} creator={selectedAudio.creator} />
-      <CurrentTimeIndicator progressBarRef={progressBarRef}/>
-      <MediaControls music={selectedAudio.music} audioRef={audioRef}/>
+      <CurrentTimeIndicator progressBarRef={progressBarRef} audioRef={audioRef} timeProgress={timeProgress} duration={duration}/>
+      <MediaControls music={selectedAudio.music} audioRef={audioRef} setDuration={setDuration} progressBarRef={progressBarRef}/>
     </div>
   );
 }
@@ -72,22 +75,23 @@ function SongInformation({ name, creator }) {
   );
 }
 
-function CurrentTimeIndicator({progressBarRef}) {
+function CurrentTimeIndicator({progressBarRef, timeProgress, duration}) {
   
   const handleProgressChange = () => {
-    console.log(progressBarRef.current.value);
-  }
+    audioRef.current.currentTime = progressBarRef.current.value;
+    // console.log(progressBarRef.current.value);
+  };
 
   return(
     <div className="progress">
-      <span className="time current" >0:00</span>
+      <span className="time current" >{timeProgress}</span>
       <input 
       type="range" 
       ref={progressBarRef} 
       defaultValue="0" 
       onChange={handleProgressChange}
       />
-      <span className ="time">04:10</span>
+      <span className ="time">{duration}</span>
     </div>
   );
 
@@ -96,13 +100,23 @@ function CurrentTimeIndicator({progressBarRef}) {
   // );
 }
 
-function MediaControls({ music, audioRef }) {
+function MediaControls({ music, audioRef, setDuration, progressBarRef }) {
   const [isPlaying, setIsPlaying] = useState(false);
   // const audioRef = useRef(null);
 
   const togglePlay = () => {
     setIsPlaying((prevIsPlaying) => !prevIsPlaying);
   };
+
+  const onLoadedMetadata = () => {
+    // console.log(audioRef.current.duration)
+
+    const seconds = audioRef.current.duration;
+    setDuration(seconds);
+    progressBarRef.current.max = seconds;
+
+  }
+
 
   useEffect(() => {
     if (audioRef.current) {
@@ -116,7 +130,7 @@ function MediaControls({ music, audioRef }) {
 
   return (
     <div className="media-control">
-      <audio ref={audioRef} src={music} loop></audio>
+      <audio ref={audioRef} src={music} onLoadedMetadata={onLoadedMetadata} loop></audio>
 
       <div className="shuffle-control">
         <Shuffle style={{ fontSize: '3.5rem' }} />
