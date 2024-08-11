@@ -4,12 +4,28 @@ import Shuffle from '@material-ui/icons/Shuffle';
 import SkipNext from '@material-ui/icons/SkipNext';
 import SkipPrevious from '@material-ui/icons/SkipPrevious';
 import PlayCircleFilled from '@material-ui/icons/PlayCircleFilled';
+import Add from '@material-ui/icons/Add';
 import "./App.css";
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { audios } from './audioData';
 
 export default function App() {
-  return <SoundBox />;
+  return(
+    <div className = "display">
+    <Button />
+    <SoundBox />
+    </div>
+  ) 
+}
+
+function Button(){
+  return(
+    <div>
+      <button className = "button">
+        <Add/>
+      </button>
+    </div>
+  )
 }
 
 function SoundBox() {
