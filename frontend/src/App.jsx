@@ -21,7 +21,7 @@ export default function App() {
 function Button(){
   return(
       <button className = "button">
-        <Add/>
+        <Add style = {{ fontSize: '3.5rem'}}/>
       </button>
   )
 }

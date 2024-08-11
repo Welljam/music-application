@@ -1,8 +1,12 @@
+.display{
+    display: flex;
+}
+
 .sound-box{
     background-color: rgb(197, 197, 197);
     width: 600px;
     height: 800px;
-    position: relative;
+    position: absolute;
     left: calc(50% - 300px);
     border-radius: 20px;
 }
@@ -119,10 +123,9 @@ input[type="range"]::before{
     margin: 0px;
     padding: 0px;
     border: 0px;
-    width: calc(48*2px);
-    height: 48px;
-}
-
-.display{
-    display: flex;
+    width: calc(100*2px);
+    height: 100px;
+    position: relative;
+    left: 20px;
+    top: 20px;
 }
