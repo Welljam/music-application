@@ -8,6 +8,7 @@ import Add from '@material-ui/icons/Add';
 import "./App.css";
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { audios } from './audioData';
+import {useMediaQuery} from '@material-ui/core';
 
 export default function App() {
   return(
@@ -19,9 +20,12 @@ export default function App() {
 }
 
 function Button(){
+
+  const isLargeScreen = useMediaQuery('(min-width:1100px)')
+
   return(
       <button className = "button">
-        <Add style = {{ fontSize: '3.5rem'}}/>
+      <Add style={{ fontSize: isLargeScreen ? '3.5rem' : '2rem' }} />
       </button>
   )
 }
