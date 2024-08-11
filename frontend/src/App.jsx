@@ -20,11 +20,9 @@ export default function App() {
 
 function Button(){
   return(
-    <div>
       <button className = "button">
         <Add/>
       </button>
-    </div>
   )
 }
 
