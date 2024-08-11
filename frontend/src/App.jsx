@@ -4,16 +4,37 @@ import Shuffle from '@material-ui/icons/Shuffle';
 import SkipNext from '@material-ui/icons/SkipNext';
 import SkipPrevious from '@material-ui/icons/SkipPrevious';
 import PlayCircleFilled from '@material-ui/icons/PlayCircleFilled';
+import Add from '@material-ui/icons/Add';
 import "./App.css";
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { audios } from './audioData';
 
 export default function App() {
-  return <SoundBox />;
+  return(
+    <div className = "display">
+    <Button />
+    <SoundBox />
+    </div>
+  ) 
+}
+
+function Button(){
+  return(
+    <div>
+      <button className = "button">
+        <Add/>
+      </button>
+    </div>
+  )
 }
 
 function SoundBox() {
   const [currentAudioIndex, setCurrentAudioIndex] = useState(0);
+  const [timeProgress, setTimeProgress] = useState(0);
+  const [duration, setDuration] = useState(0);
+
+  const audioRef = useRef(null);
+  const progressBarRef = useRef(null);
 
   const handleNextSong = () => {
     setCurrentAudioIndex((prevIndex) => (prevIndex + 1) % audios.length);
@@ -29,8 +50,8 @@ function SoundBox() {
     <div className="sound-box">
       <Image image={selectedAudio.image} onNextClick={handleNextSong} onPreviousClick={handlePreviousSong} />
       <SongInformation name={selectedAudio.name} creator={selectedAudio.creator} />
-      <CurrentTimeIndicator />
-      <MediaControls music={selectedAudio.music} />
+      <CurrentTimeIndicator progressBarRef={progressBarRef} timeProgress={timeProgress} duration={duration} audioRef={audioRef} />
+      <MediaControls music={selectedAudio.music} audioRef={audioRef} setDuration={setDuration} progressBarRef={progressBarRef} duration={duration} setTimeProgress={setTimeProgress} />
     </div>
   );
 }
@@ -70,19 +91,97 @@ function SongInformation({ name, creator }) {
   );
 }
 
-function CurrentTimeIndicator() {
+function CurrentTimeIndicator({ progressBarRef, timeProgress, duration, audioRef }) {
+
+  const formatTime = (time) => {
+    if (time && !isNaN(time)) {
+      const minutes = Math.floor(time / 60);
+      const formattedMinutes = minutes < 10 ? `0${minutes}` : `${minutes}`;
+      const seconds = Math.floor(time % 60);
+      const formattedSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
+      return `${formattedMinutes}:${formattedSeconds}`;
+    }
+    return '00:00';
+  };
+
+  const handleProgressChange = () => {
+    audioRef.current.currentTime = progressBarRef.current.value;
+  };
+
+  const handleProgressBarClick = (event) => {
+    const progressBar = progressBarRef.current;
+    const clickPosition = event.nativeEvent.offsetX / progressBar.offsetWidth;
+    const newTime = clickPosition * duration;
+    progressBar.value = newTime;
+    audioRef.current.currentTime = newTime;
+  };
+
   return (
-    <hr />
+    <div className="progress" onClick={handleProgressBarClick}>
+      <span className="time">{formatTime(timeProgress)}</span>
+      <input
+        type="range"
+        ref={progressBarRef}
+        defaultValue="0"
+        onChange={handleProgressChange}
+      />
+      <span className="time">{formatTime(duration)}</span>
+    </div>
   );
 }
 
-function MediaControls({ music }) {
+function MediaControls({ music, audioRef, setDuration, progressBarRef, duration, setTimeProgress }) {
   const [isPlaying, setIsPlaying] = useState(false);
-  const audioRef = useRef(null);
+  const playAnimationRef = useRef(null);
 
   const togglePlay = () => {
-    setIsPlaying((prevIsPlaying) => !prevIsPlaying);
+    setIsPlaying(prevIsPlaying => !prevIsPlaying);
   };
+
+  const onLoadedMetadata = () => {
+    const seconds = audioRef.current.duration;
+    setDuration(seconds);
+    progressBarRef.current.max = seconds;
+  };
+
+  const updateProgress = useCallback(() => {
+    const currentTime = audioRef.current.currentTime;
+    setTimeProgress(currentTime);
+    progressBarRef.current.value = currentTime;
+    progressBarRef.current.style.setProperty(
+      '--range-progress',
+      `${(currentTime / duration) * 100}%`
+    );
+  }, [duration, setTimeProgress]);
+
+  const startAnimation = useCallback(() => {
+    if (audioRef.current && progressBarRef.current && duration) {
+      const animate = () => {
+        updateProgress();
+        playAnimationRef.current = requestAnimationFrame(animate);
+      };
+      playAnimationRef.current = requestAnimationFrame(animate);
+    }
+  }, [updateProgress, duration]);
+
+  useEffect(() => {
+    if (isPlaying) {
+      audioRef.current.play();
+      startAnimation();
+    } else {
+      audioRef.current.pause();
+      if (playAnimationRef.current !== null) {
+        cancelAnimationFrame(playAnimationRef.current);
+        playAnimationRef.current = null;
+      }
+      updateProgress();
+    }
+    return () => {
+      if (playAnimationRef.current !== null) {
+        cancelAnimationFrame(playAnimationRef.current);
+      }
+    };
+  }, [isPlaying, startAnimation, updateProgress]);
 
   useEffect(() => {
     if (audioRef.current) {
@@ -96,7 +195,7 @@ function MediaControls({ music }) {
 
   return (
     <div className="media-control">
-      <audio ref={audioRef} src={music} loop></audio>
+      <audio ref={audioRef} src={music} onLoadedMetadata={onLoadedMetadata} loop></audio>
 
       <div className="shuffle-control">
         <Shuffle style={{ fontSize: '3.5rem' }} />

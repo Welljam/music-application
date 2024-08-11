@@ -94,3 +94,33 @@ hr{
     margin-top: 27px;
     cursor: pointer;
 }
+
+.progress{
+    margin-top: 70px;
+    position: relative;
+    margin-left: 200px;
+}
+.time{
+    width: 100px;
+}
+
+input[type="range"]{
+    --range-progress: 50%;
+}
+
+input[type="range"]::before{
+    background: #f50;
+    width: var(--range-progress)
+}
+
+.button{
+    display: inline-block;
+    cursor: pointer;
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+}
+
+.display{
+    display: flex;
+}
