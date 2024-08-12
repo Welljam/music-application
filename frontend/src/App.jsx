@@ -1,10 +1,10 @@
-import PauseCircleFilled from '@material-ui/icons/PauseCircleFilled';
-import Repeat from '@material-ui/icons/Repeat';
-import Shuffle from '@material-ui/icons/Shuffle';
-import SkipNext from '@material-ui/icons/SkipNext';
-import SkipPrevious from '@material-ui/icons/SkipPrevious';
-import PlayCircleFilled from '@material-ui/icons/PlayCircleFilled';
-import Add from '@material-ui/icons/Add';
+import PauseCircleFilled from '@mui/icons-material/PauseCircleFilled';
+import Repeat from '@mui/icons-material/Repeat';
+import Shuffle from '@mui/icons-material/Shuffle';
+import SkipNext from '@mui/icons-material/SkipNext';
+import SkipPrevious from '@mui/icons-material/SkipPrevious';
+import PlayCircleFilled from '@mui/icons-material/PlayCircleFilled';
+import Add from '@mui/icons-material/Add';
 import "./App.css";
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { audios } from './audioData';
