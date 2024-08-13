@@ -8,6 +8,7 @@ import Add from '@mui/icons-material/Add';
 import "./App.css";
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { audios } from './audioData';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 export default function App() {
   return(
@@ -19,9 +20,12 @@ export default function App() {
 }
 
 function Button(){
+
+  const isLargeScreen = useMediaQuery('(min-width:1100px)')
+
   return(
       <button className = "button">
-        <Add/>
+        <Add style={{ fontSize: isLargeScreen ? '3rem' : '2rem' }} />
       </button>
   )
 }
