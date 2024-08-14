@@ -9,25 +9,52 @@ import "./App.css";
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { audios } from './audioData';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { Dialog, DialogActions, DialogContent, DialogTitle, TextField, Stack } from '@mui/material';
+import { Button } from '@mui/material';
 
 export default function App() {
-  return(
-    <div className = "display">
-    <Button />
-    <SoundBox />
+  return (
+    <div className="display">
+      <ButtonFunc />
+      <SoundBox />
     </div>
-  ) 
+  );
 }
 
-function Button(){
+function ButtonFunc() {
+  const isLargeScreen = useMediaQuery('(min-width:1100px)');
+  const [open, setOpen] = useState(false);
 
-  const isLargeScreen = useMediaQuery('(min-width:1100px)')
+  const functionOpenPopup = () => {
+    setOpen(true);
+  };
 
-  return(
-      <button className = "button">
+  const closePopup = () => {
+    setOpen(false);
+  };
+
+  return (
+    <>
+      <Button className="button" onClick={functionOpenPopup}>
         <Add style={{ fontSize: isLargeScreen ? '3rem' : '2rem' }} />
-      </button>
-  )
+      </Button>
+      <Dialog open={open} onClose={closePopup}>
+        <DialogTitle>User Screen</DialogTitle>
+        <DialogContent>
+          <Stack spacing={2}>
+            <TextField variant="outlined" label="Artist" />
+            <TextField variant="outlined" label="Album" />
+            <TextField variant="outlined" label="Bild" />
+          </Stack>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={closePopup} color="error" variant="contained">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
+  );
 }
 
 function SoundBox() {
