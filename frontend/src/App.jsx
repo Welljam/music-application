@@ -24,6 +24,7 @@ export default function App() {
 function ButtonFunc() {
   const isLargeScreen = useMediaQuery('(min-width:1100px)');
   const [open, setOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const functionOpenPopup = () => {
     setOpen(true);
@@ -33,18 +34,44 @@ function ButtonFunc() {
     setOpen(false);
   };
 
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    setSelectedImage(URL.createObjectURL(file));
+  };
+
   return (
     <>
-      <Button className="button" onClick={functionOpenPopup}>
+      <Button color="grey" variant="contained" className="button" onClick={functionOpenPopup}>
         <Add style={{ fontSize: isLargeScreen ? '3rem' : '2rem' }} />
       </Button>
-      <Dialog open={open} onClose={closePopup}>
-        <DialogTitle>User Screen</DialogTitle>
+      <Dialog open={open} onClose={closePopup} fullWidth>
+        <DialogTitle>Lägg till en låt</DialogTitle>
         <DialogContent>
           <Stack spacing={2}>
             <TextField variant="outlined" label="Artist" />
-            <TextField variant="outlined" label="Album" />
-            <TextField variant="outlined" label="Bild" />
+            <TextField variant="outlined" label="Låt" />
+            <TextField variant="outlined" label="mp3-fil" />
+            <div>
+              <input
+                accept="image/*"
+                id="bild-upload"
+                type="file"
+                style={{ display: 'none' }}
+                onChange={handleImageUpload}
+              />
+              <label htmlFor="bild-upload">
+                <Button variant="outlined" component="span" className="bild-storlek">
+                  Bild
+                </Button>
+              </label>
+              {selectedImage && (
+                <img
+                  src={selectedImage}
+                  alt="Selected"
+                  style={{ marginTop: '10px', maxWidth: '100%' }}
+                />
+              )}
+            </div>
           </Stack>
         </DialogContent>
         <DialogActions>
