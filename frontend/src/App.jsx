@@ -9,8 +9,7 @@ import "./App.css";
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { audios } from './audioData';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { Dialog, DialogActions, DialogContent, DialogTitle, TextField, Stack } from '@mui/material';
-import { Button } from '@mui/material';
+import { Dialog, DialogActions, DialogContent, DialogTitle, TextField, Stack, Button } from '@mui/material';
 
 export default function App() {
   return (
@@ -32,6 +31,7 @@ function ButtonFunc() {
 
   const closePopup = () => {
     setOpen(false);
+    setSelectedImage(null);
   };
 
   const handleImageUpload = (event) => {
@@ -75,8 +75,8 @@ function ButtonFunc() {
           </Stack>
         </DialogContent>
         <DialogActions>
-          <Button onClick={closePopup} color="error" variant="contained">
-            Close
+          <Button onClick={closePopup} variant="contained">
+            Upload
           </Button>
         </DialogActions>
       </Dialog>
