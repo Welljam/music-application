@@ -10,6 +10,7 @@ import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { audios } from './audioData';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { Dialog, DialogActions, DialogContent, DialogTitle, TextField, Stack, Button } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 
 export default function App() {
   return (
@@ -71,6 +72,21 @@ function ButtonFunc() {
         <Add style={{ fontSize: isLargeScreen ? '3rem' : '2rem' }} />
       </Button>
       <Dialog open={open} onClose={closePopup} fullWidth>
+      <DialogTitle>
+          Lägg till en låt
+          <CloseIcon
+            aria-label="close"
+            onClick={closePopup}
+            sx={{
+              position: 'absolute',
+              right: 12,
+              top: 12,
+              color: (theme) => theme.palette.grey[500],
+              cursor: 'pointer'
+            }}
+          >
+          </CloseIcon>
+        </DialogTitle>
         <DialogContent>
           <Stack spacing={2}>
             <TextField
