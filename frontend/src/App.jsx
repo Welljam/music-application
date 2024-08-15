@@ -8,22 +8,80 @@ import Add from '@mui/icons-material/Add';
 import "./App.css";
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { audios } from './audioData';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { Dialog, DialogActions, DialogContent, DialogTitle, TextField, Stack, Button } from '@mui/material';
 
 export default function App() {
-  return(
-    <div className = "display">
-    <Button />
-    <SoundBox />
+  return (
+    <div className="display">
+      <ButtonFunc />
+      <SoundBox />
     </div>
-  ) 
+  );
 }
 
-function Button(){
-  return(
-      <button className = "button">
-        <Add/>
-      </button>
-  )
+function ButtonFunc() {
+  const isLargeScreen = useMediaQuery('(min-width:1100px)');
+  const [open, setOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const functionOpenPopup = () => {
+    setOpen(true);
+  };
+
+  const closePopup = () => {
+    setOpen(false);
+    setSelectedImage(null);
+  };
+
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    setSelectedImage(URL.createObjectURL(file));
+  };
+
+  return (
+    <>
+      <Button color="grey" variant="contained" className="button" onClick={functionOpenPopup}>
+        <Add style={{ fontSize: isLargeScreen ? '3rem' : '2rem' }} />
+      </Button>
+      <Dialog open={open} onClose={closePopup} fullWidth>
+        <DialogTitle>Lägg till en låt</DialogTitle>
+        <DialogContent>
+          <Stack spacing={2}>
+            <TextField variant="outlined" label="Artist" />
+            <TextField variant="outlined" label="Låt" />
+            <TextField variant="outlined" label="mp3-fil" />
+            <div>
+              <input
+                accept="image/*"
+                id="bild-upload"
+                type="file"
+                style={{ display: 'none' }}
+                onChange={handleImageUpload}
+              />
+              <label htmlFor="bild-upload">
+                <Button variant="outlined" component="span" className="bild-storlek">
+                  Bild
+                </Button>
+              </label>
+              {selectedImage && (
+                <img
+                  src={selectedImage}
+                  alt="Selected"
+                  style={{ marginTop: '10px', maxWidth: '100%' }}
+                />
+              )}
+            </div>
+          </Stack>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={closePopup} variant="contained">
+            Upload
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
+  );
 }
 
 function SoundBox() {
