@@ -10,6 +10,7 @@ import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { audios } from './audioData';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { Dialog, DialogActions, DialogContent, DialogTitle, TextField, Stack, Button } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 
 export default function App() {
   return (
@@ -25,12 +26,20 @@ function ButtonFunc() {
   const [open, setOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
+  const [artist, setArtist] = useState('');
+  const [songName, setSongName] = useState('');
+  const [mp3File, setMp3File] = useState(null);
+
+
   const functionOpenPopup = () => {
     setOpen(true);
   };
 
   const closePopup = () => {
     setOpen(false);
+    setArtist('');
+    setSongName('');
+    setMp3File(null);
     setSelectedImage(null);
   };
 
@@ -39,43 +48,94 @@ function ButtonFunc() {
     setSelectedImage(URL.createObjectURL(file));
   };
 
+  const handleMp3Upload = (event) => {
+    const file = event.target.files[0];
+    setMp3File(file);
+  };
+
+  const handleUpload = () => {
+    const newAudio = {
+      id: `${audios.length + 1}`,
+      name: songName,
+      music: URL.createObjectURL(mp3File),
+      creator: artist,
+      image: selectedImage,
+    };
+
+    audios.push(newAudio);
+    closePopup();
+  };
+
   return (
     <>
       <Button color="grey" variant="contained" className="button" onClick={functionOpenPopup}>
         <Add style={{ fontSize: isLargeScreen ? '3rem' : '2rem' }} />
       </Button>
       <Dialog open={open} onClose={closePopup} fullWidth>
-        <DialogTitle>Lägg till en låt</DialogTitle>
+      <DialogTitle>
+          Lägg till en låt
+          <CloseIcon
+            aria-label="close"
+            onClick={closePopup}
+            sx={{
+              position: 'absolute',
+              right: 12,
+              top: 12,
+              color: (theme) => theme.palette.grey[500],
+              cursor: 'pointer'
+            }}
+          >
+          </CloseIcon>
+        </DialogTitle>
         <DialogContent>
           <Stack spacing={2}>
-            <TextField variant="outlined" label="Artist" />
-            <TextField variant="outlined" label="Låt" />
-            <TextField variant="outlined" label="mp3-fil" />
-            <div>
-              <input
-                accept="image/*"
-                id="bild-upload"
-                type="file"
-                style={{ display: 'none' }}
-                onChange={handleImageUpload}
+            <TextField
+              variant="outlined"
+              label="Artist"
+              value={artist}
+              onChange={(e) => setArtist(e.target.value)}
+            />
+            <TextField
+              variant="outlined"
+              label="Låt"
+              value={songName}
+              onChange={(e) => setSongName(e.target.value)}
+            />
+            <input
+              accept=".mp3"
+              id="mp3-upload"
+              type="file"
+              style={{ display: 'none' }}
+              onChange={handleMp3Upload}
+            />
+            <label htmlFor="mp3-upload">
+              <Button variant="outlined" component="span" className="bild-storlek">
+                Upload MP3 File
+              </Button>
+            </label>
+            <input
+              accept="image/*"
+              id="bild-upload"
+              type="file"
+              style={{ display: 'none' }}
+              onChange={handleImageUpload}
+            />
+            <label htmlFor="bild-upload">
+              <Button variant="outlined" component="span" className="bild-storlek">
+                Upload Image
+              </Button>
+            </label>
+            {selectedImage && (
+              <img
+                src={selectedImage}
+                alt="Selected"
+                style={{ marginTop: '10px', maxWidth: '100%' }}
               />
-              <label htmlFor="bild-upload">
-                <Button variant="outlined" component="span" className="bild-storlek">
-                  Bild
-                </Button>
-              </label>
-              {selectedImage && (
-                <img
-                  src={selectedImage}
-                  alt="Selected"
-                  style={{ marginTop: '10px', maxWidth: '100%' }}
-                />
-              )}
-            </div>
+            )}
           </Stack>
         </DialogContent>
         <DialogActions>
-          <Button onClick={closePopup} variant="contained">
+          <Button onClick={handleUpload} variant="contained">
             Upload
           </Button>
         </DialogActions>
