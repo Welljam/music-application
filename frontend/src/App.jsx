@@ -39,7 +39,11 @@ function ButtonFunc() {
     setSelectedImage(URL.createObjectURL(file));
   };
 
-  
+  const [inputValue, setInputValue] = useState('');
+
+  const handleChange = (event) => {
+    setInputValue(event.target.value)
+  };
 
   return (
     <>
@@ -50,9 +54,24 @@ function ButtonFunc() {
         <DialogTitle>Lägg till en låt</DialogTitle>
         <DialogContent>
           <Stack spacing={2}>
-            <TextField variant="outlined" label="Artist" />
-            <TextField variant="outlined" label="Låt" />
-            <TextField variant="outlined" label="mp3-fil" />
+            <div>
+              <input style={{display: 'none'}} id="artist" type="text" value={inputValue} onChange={handleChange} />
+              <label htmlFor="artist">
+                <TextField className="bild-storlek" variant="outlined" label="Artist" />
+              </label>
+            </div>
+            <div>
+              <input style={{display: 'none'}} id="artist" type="text" value={inputValue} onChange={handleChange} />
+              <label htmlFor="Låt">
+                <TextField className="bild-storlek" variant="outlined" label="Låt" />
+              </label>
+            </div>
+            <div>
+              <input style={{display: 'none'}} id="artist" type="text" value={inputValue} onChange={handleChange} />
+              <label htmlFor="mp3-fil">
+                <TextField className="bild-storlek" variant="outlined" label="mp3-fil" />
+              </label>
+            </div>
             <div>
               <input
                 accept="image/*"
