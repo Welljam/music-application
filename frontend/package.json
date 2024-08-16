@@ -2,13 +2,13 @@
   "name": "music-application",
   "private": true,
   "version": "0.0.0",
+  "proxy": "http://localhost:30001",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview",
-    "proxy": "3001"
+    "preview": "vite preview"
 
   },
   "dependencies": {
