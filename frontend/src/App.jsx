@@ -13,9 +13,6 @@ import { Dialog, DialogActions, DialogContent, DialogTitle, TextField, Stack, Bu
 import CloseIcon from '@mui/icons-material/Close';
 
 export default function App() {
-
-  
-
   return (
     <div className="display">
       <ButtonFunc />
@@ -34,6 +31,33 @@ function ButtonFunc() {
   const [mp3File, setMp3File] = useState(null);
 
 
+  const newSong = {
+    artist: "Artist Name",
+    songID: "123",
+    songName: "Song Title",
+    album: "Album Name",
+    imageUrl: "http://example.com/image.jpg"
+  };
+
+  fetch("http://localhost:3001/add-song", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(newSong)
+  })
+  .then((response) => {
+    if (response.ok) {
+      // Handle successful submission (optional)
+      console.log("Song data successfully sent!");
+    } else {
+      console.error("Failed to send song data");
+    }
+  })
+  .catch((error) => {
+    console.error("Error:", error);
+  });
+ 
   const functionOpenPopup = () => {
     setOpen(true);
   };
