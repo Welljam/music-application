@@ -38,25 +38,6 @@ function ButtonFunc() {
     album: "Album Name",
     imageUrl: "http://example.com/image.jpg"
   };
-
-  fetch("http://localhost:3001/add-song", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(newSong)
-  })
-  .then((response) => {
-    if (response.ok) {
-      // Handle successful submission (optional)
-      console.log("Song data successfully sent!");
-    } else {
-      console.error("Failed to send song data");
-    }
-  })
-  .catch((error) => {
-    console.error("Error:", error);
-  });
  
   const functionOpenPopup = () => {
     setOpen(true);
@@ -81,17 +62,43 @@ function ButtonFunc() {
   };
 
   const handleUpload = () => {
-    const newAudio = {
+    const newSong = {
+      artist: artist,
+      songID: `${audios.length + 1}`,
+      songName: songName,
+      imageUrl: selectedImage,
+    };
+  
+    fetch("http://localhost:3001/add-song", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newSong),
+    })
+      .then((response) => {
+        if (response.ok) {
+          console.log("Song data successfully sent!");
+        } else {
+          console.error("Failed to send song data");
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  
+    // Add the song to the `audios` array to immediately reflect it in your frontend UI
+    audios.push({
       id: `${audios.length + 1}`,
       name: songName,
       music: URL.createObjectURL(mp3File),
       creator: artist,
       image: selectedImage,
+    });
+  
+    closePopup(); 
     };
 
-    audios.push(newAudio);
-    closePopup();
-  };
 
   return (
     <>
