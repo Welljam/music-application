@@ -19,7 +19,6 @@ app.get('/songs', (req, res) => {
 app.post('/add-song', (req, res) => {
     const newSong = req.body;
     console.log("Received new song data:", newSong);
-
     res.status(200).json({ message: "Song data received" });
 });
 

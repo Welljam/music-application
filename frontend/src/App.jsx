@@ -24,20 +24,11 @@ export default function App() {
 function ButtonFunc() {
   const isLargeScreen = useMediaQuery('(min-width:1100px)');
   const [open, setOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
 
+  const [selectedImage, setSelectedImage] = useState(null);
   const [artist, setArtist] = useState('');
   const [songName, setSongName] = useState('');
   const [mp3File, setMp3File] = useState(null);
-
-
-  const newSong = {
-    artist: "Artist Name",
-    songID: "123",
-    songName: "Song Title",
-    album: "Album Name",
-    imageUrl: "http://example.com/image.jpg"
-  };
  
   const functionOpenPopup = () => {
     setOpen(true);
@@ -87,7 +78,6 @@ function ButtonFunc() {
         console.error("Error:", error);
       });
   
-    // Add the song to the `audios` array to immediately reflect it in your frontend UI
     audios.push({
       id: `${audios.length + 1}`,
       name: songName,
