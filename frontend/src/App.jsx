@@ -11,6 +11,7 @@ import { audios } from './audioData';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { Dialog, DialogActions, DialogContent, DialogTitle, TextField, Stack, Button } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import replaySprite from './assets/Sprite-Replay.png';
 
 export default function App() {
   return (
@@ -351,9 +352,9 @@ function MediaControls({ music, audioRef, setDuration, progressBarRef, duration,
         </div>
       )}
 
-      <div className="replay-control">
-        <Repeat style={{ fontSize: '3.5rem' }} />
-      </div>
+        <div className="replay-control">
+          <img src={replaySprite} alt="Replay" style={{ width: '56px', height: '56px' }} />
+        </div>
     </div>
   );
 }
