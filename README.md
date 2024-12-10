@@ -8,6 +8,4 @@ fullstack project
 ## usage
 
 <p> cd frontend <br> npm run dev</p>
-cd frontend
-npm run dev
 
