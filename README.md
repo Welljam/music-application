@@ -3,13 +3,11 @@
 fullstack project
 
 ## installation 
-install npm
-install node
-install vite
-
+<p> install npm<br> install node <br> install vite </p>
 
 ## usage
 
+<p> cd frontend <br> npm run dev</p>
 cd frontend
 npm run dev
 
